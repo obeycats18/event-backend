@@ -24,7 +24,7 @@ function createMenu(app) {
     })
 }
 
-function getAllMenus(app) {
+function getMenusByName(app) {
     app.get('/menu', function(request, respones) {
         const name = request.query.name
         Menu.findOne({name: name}).populate('dishes').exec(function(error, menu) {
@@ -51,7 +51,33 @@ function getAllMenus(app) {
     })
 }
 
+function getAllMenus(app) {
+    app.get('/menus', function(request, respones) {
+        Menu.find({}).populate('dishes').exec(function(error, menu) {
+            if(error) {
+                return respones.json({
+                    status: 500,
+                    error: error
+                })
+            }
+
+            if(menu === null) {
+                return respones.json({
+                    status: 404,
+                    message: 'Menus not found'
+                })
+            }
+
+            return respones.json({
+                status: 200,
+                menu: menu
+            })
+        })
+    })
+}
+
 module.exports = {
     createMenu: createMenu,
+    getMenusByName: getMenusByName,
     getAllMenus: getAllMenus
 }

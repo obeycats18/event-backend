@@ -2,7 +2,9 @@ const express = require('express')
 const mongoose = require('mongoose');
 
 const {createDish, getAllDishes} = require('./modules/DishModule/DishController')
-const {createMenu, getAllMenus} = require('./modules/MenuModule/MenuController')
+const {createMenu, getMenusByName, getAllMenus} = require('./modules/MenuModule/MenuController')
+const {createOrder, getOrders} = require('./modules/OrderModule/OrderController')
+
 
 const app = express()
 
@@ -18,7 +20,12 @@ getAllDishes(app)
 
 // Menu Module
 createMenu(app)
+getMenusByName(app)
 getAllMenus(app)
+
+// Order Module
+createOrder(app)
+getOrders(app)
 
 
 app.listen(8080, function () {console.log('Server starting...')})
