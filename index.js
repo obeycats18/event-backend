@@ -4,7 +4,8 @@ const mongoose = require('mongoose');
 const {createDish, getAllDishes} = require('./modules/DishModule/DishController')
 const {createMenu, getMenusByName, getAllMenus} = require('./modules/MenuModule/MenuController')
 const {createOrder, getOrders} = require('./modules/OrderModule/OrderController')
-
+const {createServices, getServices} = require('./modules/ServicesModule/ServicesController')
+const {createReviews, getReviews} = require('./modules/ReviewsModule/ReviewsController')
 
 const app = express()
 
@@ -27,5 +28,12 @@ getAllMenus(app)
 createOrder(app)
 getOrders(app)
 
+//Services Module
+createServices(app)
+getServices(app)
+
+//Reviews Module
+createReviews(app)
+getReviews(app)
 
 app.listen(8080, function () {console.log('Server starting...')})
