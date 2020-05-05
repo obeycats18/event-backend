@@ -26,8 +26,8 @@ function createMenu(app) {
 
 function getMenusByName(app) {
     app.get('/menu', function(request, respones) {
-        const name = request.query.name
-        Menu.findOne({name: name}).populate('dishes').exec(function(error, menu) {
+        const id = request.query.id
+        Menu.findById(id).populate('dishes').exec(function(error, menu) {
             if(error) {
                 return respones.json({
                     status: 500,

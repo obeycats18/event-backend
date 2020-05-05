@@ -1,5 +1,7 @@
 const express = require('express')
 const mongoose = require('mongoose');
+const cors = require('cors');
+
 
 const {createDish, getAllDishes} = require('./modules/DishModule/DishController')
 const {createMenu, getMenusByName, getAllMenus} = require('./modules/MenuModule/MenuController')
@@ -13,7 +15,9 @@ mongoose.connect('mongodb://127.0.0.1/event', function() {
     console.log('Connected to MongoDB')
 });
 
-app.use(express.json()) 
+app.use(express.json())
+app.use(cors()) 
+
 
 // Dishes Module
 createDish(app)

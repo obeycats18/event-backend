@@ -2,6 +2,9 @@ const {Orders} = require('./OrderModel')
 
 function createOrder(app) {
     app.post('/order/create', function(req, res) {
+
+        const lastName = req.query.lastName
+
         const payload = {
             first_name: req.body.first_name,
             last_name: req.body.last_name,
@@ -14,17 +17,25 @@ function createOrder(app) {
             // services: req.body.services,
         }
 
-        new Orders(payload).save(function(error) {
+        const updatedValue = obj => {
+            Object.keys(obj).forEach(key => {
+                if (obj[key] === undefined) delete obj[key];
+            });
+            return obj;
+          };
+
+        Orders.updateOne({last_name: lastName}, updatedValue(payload), {upsert: true}, function (error, order) {
+            console.log(order)
             if(error) {
                 return res.json({
                     status: 500,
                     error: error
                 })
             }
-
             return res.json({
                 status: 200,
-                message: 'Created'
+                id: order.upserted,
+                message: 'Created',
             })
         })
     })
