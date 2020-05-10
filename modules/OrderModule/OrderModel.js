@@ -24,8 +24,8 @@ const orderSchema = new Schema({
     cost: {
         type: Number,
     },
-    menu: {
-        type: Object,
+    editedDishes: {
+        type: Array,
     },
     services: {
         type: mongoose.Types.ObjectId,

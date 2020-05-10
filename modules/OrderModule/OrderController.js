@@ -12,7 +12,7 @@ function createOrder(app) {
             date: req.body.date,
             time: req.body.time,
             count_peoples: req.body.count_peoples,
-            menu: req.body.menu,
+            editedDishes: req.body.editedDishes,
             cost: req.body.cost
             // services: req.body.services,
         }
