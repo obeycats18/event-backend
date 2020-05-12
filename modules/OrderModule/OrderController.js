@@ -5,7 +5,7 @@ function createOrder(app) {
 
         const lastName = req.query.lastName
 
-        const payload = {
+        let payload = {
             first_name: req.body.first_name,
             last_name: req.body.last_name,
             telephone: req.body.telephone,
@@ -13,9 +13,10 @@ function createOrder(app) {
             time: req.body.time,
             count_peoples: req.body.count_peoples,
             editedDishes: req.body.editedDishes,
+            services: req.body.services,
             cost: req.body.cost
-            // services: req.body.services,
         }
+
 
         const updatedValue = obj => {
             Object.keys(obj).forEach(key => {
@@ -24,6 +25,7 @@ function createOrder(app) {
             return obj;
           };
 
+        console.log(payload)
         Orders.updateOne({last_name: lastName}, updatedValue(payload), {upsert: true}, function (error, order) {
             console.log(order)
             if(error) {
@@ -66,7 +68,36 @@ function getOrders(app) {
     })
 }
 
+function getOrderByLastName(app) {
+    app.get('/order', function(req, res) {
+       
+        const lastName = req.query.lastName
+
+        Orders.findOne({last_name: lastName}, function(error, order) {
+            if(error) {
+                return res.json({
+                    status: 500,
+                    error: error
+                })
+            }
+            if(order === null) {
+                return res.json({
+                    status: 404,
+                    message: 'Order not found'
+                })
+            }
+
+            return res.json({
+                status: 200,
+                order
+            })
+        })
+    })
+}
+
+
 module.exports = {
     createOrder: createOrder,
-    getOrders: getOrders
+    getOrders: getOrders,
+    getOrderByLastName
 }

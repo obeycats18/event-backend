@@ -5,7 +5,7 @@ const cors = require('cors');
 
 const {createDish, getAllDishes} = require('./modules/DishModule/DishController')
 const {createMenu, getMenusByName, getAllMenus} = require('./modules/MenuModule/MenuController')
-const {createOrder, getOrders} = require('./modules/OrderModule/OrderController')
+const {createOrder, getOrders, getOrderByLastName} = require('./modules/OrderModule/OrderController')
 const {createServices, getServices} = require('./modules/ServicesModule/ServicesController')
 const {createReviews, getReviews} = require('./modules/ReviewsModule/ReviewsController')
 
@@ -31,6 +31,7 @@ getAllMenus(app)
 // Order Module
 createOrder(app)
 getOrders(app)
+getOrderByLastName(app)
 
 //Services Module
 createServices(app)

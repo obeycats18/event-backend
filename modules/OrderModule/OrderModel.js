@@ -27,10 +27,10 @@ const orderSchema = new Schema({
     editedDishes: {
         type: Array,
     },
-    services: {
+    services: [{
         type: mongoose.Types.ObjectId,
         ref: 'Services',
-    }
+    }]
 })
 
 const Orders = mongoose.model('Orders', orderSchema)
