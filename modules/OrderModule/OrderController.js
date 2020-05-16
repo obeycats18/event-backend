@@ -14,7 +14,8 @@ function createOrder(app) {
             count_peoples: req.body.count_peoples,
             editedDishes: req.body.editedDishes,
             services: req.body.services,
-            cost: req.body.cost
+            cost: req.body.cost,
+            typeEvent: req.body.typeEvent
         }
 
 
@@ -73,7 +74,7 @@ function getOrderByLastName(app) {
        
         const lastName = req.query.lastName
 
-        Orders.findOne({last_name: lastName}, function(error, order) {
+        Orders.findOne({last_name: lastName}).populate('services').exec( function(error, order) {
             if(error) {
                 return res.json({
                     status: 500,
@@ -90,7 +91,7 @@ function getOrderByLastName(app) {
             return res.json({
                 status: 200,
                 order
-            })
+            })  
         })
     })
 }

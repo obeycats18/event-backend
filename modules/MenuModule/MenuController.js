@@ -7,6 +7,8 @@ function createMenu(app) {
             dishes: request.body.dishes
         }
 
+        console.log(payload)
+
         new Menu(payload).save(function(error) {
             if(error) {
                 return respones.json({

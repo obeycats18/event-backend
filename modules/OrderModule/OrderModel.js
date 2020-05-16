@@ -24,6 +24,9 @@ const orderSchema = new Schema({
     cost: {
         type: Number,
     },
+    typeEvent: {
+        type: String,
+    },
     editedDishes: {
         type: Array,
     },
