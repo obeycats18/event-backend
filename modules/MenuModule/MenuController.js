@@ -78,8 +78,28 @@ function getAllMenus(app) {
     })
 }
 
+function deleteMenu(app) {
+    app.delete('/menus/delete', function(request, respones) {
+        const id =  request.query.id
+        Menu.deleteOne({_id: id}, function(error) {
+            if(error) {
+                return respones.json({
+                    status: 500,
+                    error: error
+                })
+            }
+
+            return respones.json({
+                status: 200,
+                message: 'Deleted'
+            })
+        })
+    })
+}
+
 module.exports = {
     createMenu: createMenu,
     getMenusByName: getMenusByName,
-    getAllMenus: getAllMenus
+    getAllMenus: getAllMenus,
+    deleteMenu: deleteMenu
 }

@@ -41,10 +41,32 @@ function getAllDishes(app) {
             })
         })
     })
-} 
+}
+
+function deleteDish(app) {
+    app.delete('/dishes/delete', function(request, respones) {
+
+        let id = request.query.id
+
+        Dishes.deleteOne({_id: id}, function(error) {
+            if(error) {
+                return respones.json({
+                    status: 500,
+                    error: error
+                })
+            }
+
+            return respones.json({
+                status: 200,
+                message: 'Delete'
+            })
+        })
+    })
+}
 
 module.exports = {
     createDish: createDish,
-    getAllDishes: getAllDishes
+    getAllDishes: getAllDishes,
+    deleteDish: deleteDish
 }
 

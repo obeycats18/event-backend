@@ -96,9 +96,31 @@ function getOrderByLastName(app) {
     })
 }
 
+function deleteOrder(app) {
+    app.delete('/order/delete', function(req, res) {
+
+        const id = req.query.id
+
+        Orders.deleteOne({_id: id},  function(error) {
+            if(error) {
+                return res.json({
+                    status: 500,
+                    error: error
+                })
+            }
+
+            return res.json({
+                status: 200,
+                message: 'Delete'
+            })
+        })
+    })
+}
+
 
 module.exports = {
     createOrder: createOrder,
     getOrders: getOrders,
-    getOrderByLastName
+    getOrderByLastName,
+    deleteOrder: deleteOrder
 }

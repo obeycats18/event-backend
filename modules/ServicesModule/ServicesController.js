@@ -43,7 +43,27 @@ function getServices(app){
     })
 }
 
+function deleteService(app){
+    app.delete('/services/delete',function(req, res){
+        let id = req.query.id
+        Services.deleteOne({_id: id}, function(error){
+            if(error){
+                return res.json({
+                    status:500,
+                    error
+                })
+            }
+
+            return res.json({
+                status: 200,
+                message: 'Deleted'
+            })
+        })
+    })
+}
+
 module.exports = {
     createServices: createServices,
-    getServices: getServices
+    getServices: getServices,
+    deleteService: deleteService
 }
